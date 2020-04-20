@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", ()=> {
       img: 'images/ice-cream.png'
     },
     {
-      name:'milshake',
-      img: 'images/milshake.png'
+      name:'milkshake',
+      img: 'images/milkshake.png'
     },
     {
       name:'pizza',
@@ -42,16 +42,20 @@ document.addEventListener("DOMContentLoaded", ()=> {
       img: 'images/ice-cream.png'
     },
     {
-      name:'milshake',
-      img: 'images/milshake.png'
+      name:'milkshake',
+      img: 'images/milkshake.png'
     },
     {
       name:'pizza',
       img: 'images/pizza.png'
     }
   ]
-
+cards.sort(() => 0.5 - Math.random())
   const grid = document.querySelector('.grid');
+  var cardChosen = []
+  var cardChosenId = []
+  var cardsWon = []
+  const resultDisplay = document.querySelector('#result')
 
   function createBoard(){
     for(let i=0; i<cards.length; i++){
@@ -63,7 +67,32 @@ document.addEventListener("DOMContentLoaded", ()=> {
     }
   }
   function flipcard(){
-    alert('check')
+    var cardId = this.getAttribute('data-id')
+    cardChosen.push(cards[cardId].name)
+    cardChosenId.push(cardId)
+    this.setAttribute('src', cards[cardId].img)
+    if(cardChosen.length===2){
+      setTimeout(checkForMatch, 500)
+    }
+  }
+  function checkForMatch(){
+    var allCards = document.querySelectorAll('img')
+    const optionOneId = cardChosenId[0]
+    const optionTwoId = cardChosenId[1]
+    if(cardChosen[0] === cardChosen[1]){
+      allCards[optionOneId].setAttribute('src', 'images/white.png')
+      allCards[optionTwoId].setAttribute('src', 'images/white.png')
+      cardsWon.push(cardChosen)
+    }else{
+      allCards[optionOneId].setAttribute('src', 'images/blank.png')
+      allCards[optionTwoId].setAttribute('src', 'images/blank.png')
+    }
+    cardChosen=[]
+    cardChosenId=[]
+    resultDisplay.textContent = cardsWon.length
+    if(cardsWon.length === cards.length/2){
+      resultDisplay.textContent = "Congratulations! You found them all"
+    }
   }
 
   createBoard()
