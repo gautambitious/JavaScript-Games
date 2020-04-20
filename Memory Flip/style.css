@@ -4,3 +4,11 @@
   height: 300px;
   width: 400px;
 }
+.center{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+h1{
+  font-family: 'Comic Neue', cursive;
+}

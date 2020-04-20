@@ -56,7 +56,7 @@ cards.sort(() => 0.5 - Math.random())
   var cardChosenId = []
   var cardsWon = []
   const resultDisplay = document.querySelector('#result')
-
+resultDisplay.textContent=0
   function createBoard(){
     for(let i=0; i<cards.length; i++){
       var card = document.createElement('img');
